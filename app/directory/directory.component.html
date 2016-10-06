@@ -1,0 +1,20 @@
+<h2>{{title}}</h2>
+<div>
+  <form id="filter">
+    <label>Filter movies by title:</label>
+    <input type="text" [(ngModel)]="term" />
+  </form>
+</div>
+<ul class="movie-listing">
+  <li *ngFor="let movie of movies | filter:term" (click)="onSelect(movie);" [class.selected]="movie === selectedMovie">
+    <div>
+      <span class="single-movie">{{movie.id}}: ({{movie.year}}) {{movie.mtitle}}</span>
+    </div>
+  </li>
+</ul>
+
+<div *ngIf="selectedMovie">
+  <h2>({{selectedMovie.year}}) {{selectedMovie.mtitle}} is selected.</h2>
+  <app-detail [movie]="selectedMovie"></app-detail>
+  <button (click)="gotoDetail(selectedMovie)">View Details</button>
+</div>

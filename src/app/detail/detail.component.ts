@@ -28,8 +28,11 @@ export class DetailComponent implements OnInit {
     this.selectedmovie = this.dataService.getsingleData(this.id-1);
   }
 
-  save(){
+  update(id, mtitle, year){
     console.log("Clicked the save button.");
+
+    this.dataService.fbUpdateData(id, mtitle, year);
+
     this.router.navigate(['/movies']);
   }
 

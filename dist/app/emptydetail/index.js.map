@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["file:///D:/angularprojects/moviescli/tmp/broccoli_type_script_compiler-input_base_path-rP55KcGk.tmp/0/src/app/emptydetail/index.ts"],"names":[],"mappings":";;;;AAAA,iBAAc,yBAAyB,CAAC,EAAA","sourcesContent":["export * from './emptydetail.component';\n"]}

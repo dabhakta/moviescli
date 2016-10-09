@@ -41,6 +41,7 @@ const barrels: string[] = [
   'app/directory',
   'app/movie',
   'app/detail',
+  'app/emptydetail',
   /** @cli-barrel */
 ];
 

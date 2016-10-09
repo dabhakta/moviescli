@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { FilterPipe } from '../filter.pipe';
 import { DataService } from '../data.service';
@@ -21,7 +22,10 @@ export class DirectoryComponent implements OnInit {
   movies = [];
   selectedMovie: any;
 
-  constructor(private router: Router, private dataService: DataService) { }
+  constructor(
+    private router: Router,
+    private dataService: DataService,
+    private location: Location) { }
 
   ngOnInit() {
     this.getMovies();
@@ -35,8 +39,17 @@ export class DirectoryComponent implements OnInit {
     this.router.navigate(['/detail', this.selectedMovie.id]);
   }
 
+  gotoDetailEmpty(){
+    this.router.navigate(['/detail']);
+  }
+
   getMovies(){
     this.movies = this.dataService.getData();
+  }
+
+  delete(movie: any){
+    this.dataService.delete(movie);
+    window.location.reload();
   }
 
 }

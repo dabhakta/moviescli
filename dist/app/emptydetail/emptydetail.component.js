@@ -20,12 +20,11 @@ var EmptydetailComponent = (function () {
     EmptydetailComponent.prototype.ngOnInit = function () {
     };
     EmptydetailComponent.prototype.add = function (mtitle, year) {
-        if (mtitle === undefined || year === undefined) {
-            return;
+        if (mtitle !== null && year !== null) {
+            this.idadd = this.getLastId() + 1;
+            this.dataService.fbAddData(this.idadd, mtitle, year);
+            this.router.navigate(['/movies']);
         }
-        this.idadd = this.getLastId() + 1;
-        this.dataService.fbAddData(this.idadd, mtitle, year);
-        this.router.navigate(['/movies']);
     };
     EmptydetailComponent.prototype.getLastId = function () {
         return this.dataService.getData().length;

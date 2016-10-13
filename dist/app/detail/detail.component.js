@@ -23,7 +23,6 @@ var DetailComponent = (function () {
         this.selectedmovie = this.dataService.getsingleData(this.id - 1);
     };
     DetailComponent.prototype.update = function (id, mtitle, year) {
-        console.log("Clicked the save button.");
         this.dataService.fbUpdateData(id, mtitle, year);
         this.router.navigate(['/movies']);
     };

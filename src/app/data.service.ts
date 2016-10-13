@@ -10,10 +10,11 @@ export class DataService {
   idnew: number;
   movie: any;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http) { 
+    this.fbGetData();
+  }
 
   getData(){
-    this.fbGetData();
     return this.movies;
   }
 

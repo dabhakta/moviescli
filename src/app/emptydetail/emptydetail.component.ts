@@ -24,13 +24,11 @@ export class EmptydetailComponent implements OnInit {
   }
 
   add(mtitle, year){
-    if(mtitle === undefined || year === undefined){
-      return;
-    }
-    this.idadd = this.getLastId() + 1;
-    this.dataService.fbAddData(this.idadd, mtitle, year);
-    this.router.navigate(['/movies']);
-    
+    if(mtitle !== null && year !== null){
+      this.idadd = this.getLastId() + 1;
+      this.dataService.fbAddData(this.idadd, mtitle, year);
+      this.router.navigate(['/movies']);
+    }    
   }
 
   getLastId(){

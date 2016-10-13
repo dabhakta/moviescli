@@ -14,9 +14,9 @@ var DataService = (function () {
     function DataService(http) {
         this.http = http;
         this.movies = [];
+        this.fbGetData();
     }
     DataService.prototype.getData = function () {
-        this.fbGetData();
         return this.movies;
     };
     DataService.prototype.getsingleData = function (id) {

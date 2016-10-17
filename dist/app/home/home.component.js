@@ -10,25 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var logging_service_1 = require('../logging.service');
+var data_service_1 = require('../data.service');
 var HomeComponent = (function () {
-    function HomeComponent(logger) {
+    function HomeComponent(logger, dataservice) {
         this.logger = logger;
+        this.dataservice = dataservice;
         this.homeTitle = "Welcome to the home page.";
     }
     HomeComponent.prototype.logIt = function () {
         this.logger.loghome();
     };
-    HomeComponent.prototype.ngOnInit = function () {
-    };
+    HomeComponent.prototype.ngOnInit = function () { };
     HomeComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'app-home',
             templateUrl: 'home.component.html',
             styleUrls: ['home.component.css'],
-            providers: []
+            providers: [data_service_1.DataService]
         }), 
-        __metadata('design:paramtypes', [logging_service_1.LoggingService])
+        __metadata('design:paramtypes', [logging_service_1.LoggingService, data_service_1.DataService])
     ], HomeComponent);
     return HomeComponent;
 }());

@@ -1,7 +1,7 @@
 <h2>{{title}}</h2>
+<h3>Double click to edit movies.</h3>
 <div>
-  <label>Add a movie to the directory: </label>
-  <button (click)="gotoDetailEmpty()">Add Movie</button>
+  <h3>Add a movie to the directory: <button (click)="gotoDetailEmpty()">Add Movie</button></h3>
 </div>
 <div>
   <form id="filter">
@@ -10,15 +10,10 @@
   </form>
 </div>
 <ul class="movie-listing">
-  <li *ngFor="let movie of movies | filter:term" (click)="onSelect(movie);" [class.selected]="movie === selectedMovie">
+  <li *ngFor="let movie of movies | filter:term" (click)="onSelect(movie)" [class.selected]="movie === selectedMovie" (dblclick)="gotoDetail(selectedMovie)">
     <div>
       <span class="single-movie">{{movie.id}}: ({{movie.year}}) {{movie.mtitle}}</span>
       <button (click)="delete(movie); $event.stopPropagation()">Delete</button>
     </div>
   </li>
 </ul>
-
-<div *ngIf="selectedMovie">
-  <h2>({{selectedMovie.year}}) {{selectedMovie.mtitle}} is selected.</h2>
-  <button (click)="gotoDetail(selectedMovie)">View Details/Edit</button>
-</div>

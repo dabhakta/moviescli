@@ -24,13 +24,15 @@ export class DataService {
   }
 
   fbGetData(){
-    firebase.database().ref('/').on('child_added', (snapshot) => {
+    firebase.database().ref().on('child_added', (snapshot) => {
       this.movies.push(snapshot.val())
+    });
+    firebase.database().ref().on('child_changed', (snapshot) => {
+      this.movies.splice(snapshot.key, 1, snapshot.val());
+    });
+    firebase.database().ref().on('child_removed', (snapshot) => {
+      this.movies.splice(snapshot.key, 1);
     })
-  }
-
-  fbGetLastData(){
-    return 
   }
 
   fbUpdateData(id: number, mtitle: string, year: number){
@@ -57,6 +59,14 @@ export class DataService {
   fbDelete(id: number){
     id--;
     firebase.database().ref('/' + id).remove();
+  }
+
+  testgetobj(){
+    return firebase.database().ref();
+  }
+
+  testgetobjkey(id){
+    return firebase.database().ref().child(id);
   }
 
 }

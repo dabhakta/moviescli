@@ -25,12 +25,15 @@ var DataService = (function () {
     };
     DataService.prototype.fbGetData = function () {
         var _this = this;
-        firebase.database().ref('/').on('child_added', function (snapshot) {
+        firebase.database().ref().on('child_added', function (snapshot) {
             _this.movies.push(snapshot.val());
         });
-    };
-    DataService.prototype.fbGetLastData = function () {
-        return;
+        firebase.database().ref().on('child_changed', function (snapshot) {
+            _this.movies.splice(snapshot.key, 1, snapshot.val());
+        });
+        firebase.database().ref().on('child_removed', function (snapshot) {
+            _this.movies.splice(snapshot.key, 1);
+        });
     };
     DataService.prototype.fbUpdateData = function (id, mtitle, year) {
         id--;
@@ -51,6 +54,12 @@ var DataService = (function () {
     DataService.prototype.fbDelete = function (id) {
         id--;
         firebase.database().ref('/' + id).remove();
+    };
+    DataService.prototype.testgetobj = function () {
+        return firebase.database().ref();
+    };
+    DataService.prototype.testgetobjkey = function (id) {
+        return firebase.database().ref().child(id);
     };
     DataService = __decorate([
         core_1.Injectable(), 

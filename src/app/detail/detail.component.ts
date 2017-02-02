@@ -3,7 +3,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { DataService } from '../data.service';
 
-
 @Component({
   moduleId: module.id,
   selector: 'app-detail',
@@ -17,23 +16,24 @@ export class DetailComponent implements OnInit {
   title = "Movie Details";
   id: number;
   selectedmovie: any;
+  dbmovie: any;
 
   constructor(
-    private dataService: DataService, 
+    private dataService: DataService,
     private route: ActivatedRoute,
     private router: Router) { }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.id = this.route.snapshot.params['id'];
-    this.selectedmovie = this.dataService.getsingleData(this.id-1);
+    this.selectedmovie = this.dataService.getSingleMovieId(this.id - 1);
   }
 
-  update(id, mtitle, year){
-    this.dataService.fbUpdateData(id, mtitle, year);
+  update(id, mtitle, year, director) {
+    this.dataService.fbUpdateMovies(id, mtitle, year, director);
     this.router.navigate(['/movies']);
   }
 
-  goBack(){
+  goBack() {
     this.router.navigate(['/movies']);
   }
 }

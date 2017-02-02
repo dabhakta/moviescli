@@ -20,10 +20,10 @@ var DetailComponent = (function () {
     }
     DetailComponent.prototype.ngOnInit = function () {
         this.id = this.route.snapshot.params['id'];
-        this.selectedmovie = this.dataService.getsingleData(this.id - 1);
+        this.selectedmovie = this.dataService.getSingleMovieId(this.id - 1);
     };
-    DetailComponent.prototype.update = function (id, mtitle, year) {
-        this.dataService.fbUpdateData(id, mtitle, year);
+    DetailComponent.prototype.update = function (id, mtitle, year, director) {
+        this.dataService.fbUpdateMovies(id, mtitle, year, director);
         this.router.navigate(['/movies']);
     };
     DetailComponent.prototype.goBack = function () {

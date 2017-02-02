@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LoggingService } from '../logging.service';
 
 import { DataService } from '../data.service';
 
@@ -10,20 +9,15 @@ import { DataService } from '../data.service';
   styleUrls: ['home.component.css'],
   providers: [DataService]
 })
+
 export class HomeComponent implements OnInit {
 
-  homeTitle = "Welcome to the home page.";
-  premovie;
-  ulList;
+  homeTitle = "Directions";
 
   constructor(
-    private logger: LoggingService,
     private dataservice: DataService) { }
 
-  logIt(){
-    this.logger.loghome();
+  ngOnInit() {
   }
-
-  ngOnInit() { }
 
 }

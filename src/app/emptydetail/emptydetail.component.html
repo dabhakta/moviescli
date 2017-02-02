@@ -2,12 +2,15 @@
 
 <form id="add-movie">
   <h3>Title:
-  <input type="text" [(ngModel)]="mtitle" placeholder="Title" />
+  <input type="text" [(ngModel)]="mtitle" placeholder="The Godfather" />
    </h3>
   <h3>Year: 
-  <input type="number" [(ngModel)]="year" placeholder="Year"/>
+  <input type="number" [(ngModel)]="year" placeholder="1972"/>
   </h3>
-  <button (click)="add(mtitle, year)">Add Movie</button>
+  <h3>Director: 
+  <input type="text" [(ngModel)]="director" placeholder="Francis Ford Coppola"/>
+  </h3>
+  <button (click)="add(mtitle, year, director)">Add Movie</button>
 </form>
 
 <button (click)="goBack()">Back</button>

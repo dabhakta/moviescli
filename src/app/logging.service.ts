@@ -12,5 +12,4 @@ export class LoggingService {
   loghome(){
     console.log("Almost nothing.");
   }
-
 }

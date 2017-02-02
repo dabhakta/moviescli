@@ -1,15 +1,23 @@
 <h2>{{title}}</h2>
-<h3>Title: {{selectedmovie.mtitle}}</h3>
-<h3>Year: {{selectedmovie.year}}</h3>
+
+<div id="display-movie">
+	<h3>Title: {{selectedmovie.mtitle}}</h3>
+	<h3>Year: {{selectedmovie.year}}</h3>
+	<h3>Director: {{selectedmovie.director}}</h3>
+	<h3>Added by User: {{selectedmovie.user}}</h3>
+</div>
 
 <form id="add-movie">
-  <h3>Title:
-  <input type="text" [(ngModel)]="selectedmovie.mtitle" placeholder="title" />
-   </h3>
-  <h3>Year: 
-  <input type="number" [(ngModel)]="selectedmovie.year" placeholder="year"/>
-  </h3>
-  <button (click)="update(selectedmovie.id, selectedmovie.mtitle, selectedmovie.year)">Save Movie</button>
+	<h3>Enter changes:</h3>
+	<h3>Title:
+		<input type="text" [(ngModel)]="selectedmovie.mtitle" placeholder="title" />
+	</h3>
+	<h3>Year:
+		<input type="number" [(ngModel)]="selectedmovie.year" placeholder="year" />
+	</h3>
+	<h3>Director:
+		<input type="text" [(ngModel)]="selectedmovie.director" placeholder="director" />
+	</h3>
+	<button (click)="update(selectedmovie.id, selectedmovie.mtitle, selectedmovie.year, selectedmovie.director)">Save Movie</button>
 </form>
-
 <button (click)="goBack()">Back</button>

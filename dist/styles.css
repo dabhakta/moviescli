@@ -71,27 +71,6 @@ nav a:hover{
   margin: 0 auto
 }
 
-#filter{
-  padding: 12px;
-  background: #e7e7e7;
-  border-radius: 2px;
-  line-height: 30px
-}
-
-#filter input{
-  padding: 8px;
-  width: 500px;
-  border: 1px solid #d4d4d4;
-  border-radius: 2px;
-  float: right;
-}
-
-#filter:after{
-  content: "";
-  display: block;
-  clear: both;
-}
-
 button {
     margin-top: 10px;
     margin-bottom: 20px;
@@ -101,4 +80,8 @@ button {
     padding: 5px 10px;
     border-radius: 4px;
     cursor: pointer; cursor: hand;
-  }
+}
+
+::-webkit-scrollbar {
+    background: transparent;
+}

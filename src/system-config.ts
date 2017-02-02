@@ -42,6 +42,9 @@ const barrels: string[] = [
   'app/movie',
   'app/detail',
   'app/emptydetail',
+  'app/users',
+  'app/login',
+  'app/register',
   /** @cli-barrel */
 ];
 

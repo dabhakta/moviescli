@@ -14,52 +14,136 @@ var DataService = (function () {
     function DataService(http) {
         this.http = http;
         this.movies = [];
-        this.fbGetData();
+        this.users = [];
+        this.stats = [];
+        this.fbGetMovies();
+        this.fbGetUsers();
+        this.fbGetStatistics();
     }
-    DataService.prototype.getData = function () {
+    DataService.prototype.getMovies = function () {
         return this.movies;
     };
-    DataService.prototype.getsingleData = function (id) {
-        this.getData();
+    DataService.prototype.getUsers = function () {
+        return this.users;
+    };
+    DataService.prototype.getCurrentUser = function () {
+        return firebase.auth().currentUser;
+    };
+    DataService.prototype.getSingleMovieId = function (id) {
+        this.fbGetMovies();
         return this.movies[id];
     };
-    DataService.prototype.fbGetData = function () {
+    DataService.prototype.getTotalMovie = function () {
+        this.fbGetStatistics();
+        return this.stats[0];
+    };
+    DataService.prototype.setCurrentUser = function () {
+        this.currentuser = firebase.auth().currentUser;
+    };
+    DataService.prototype.registerUser = function (email, password) {
+        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+            alert(error.message);
+        });
+        this.setCurrentUser();
+        this.fbAddUser(email);
+    };
+    DataService.prototype.loginUser = function (email, password) {
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+            alert(error.message);
+        });
+        this.setCurrentUser();
+    };
+    DataService.prototype.signoutUser = function () {
+        firebase.auth().signOut().catch(function (error) {
+            alert(error.message);
+        });
+        this.currentuser = null;
+    };
+    DataService.prototype.fbGetMovies = function () {
         var _this = this;
-        firebase.database().ref().on('child_added', function (snapshot) {
+        firebase.database().ref('/movies').on('child_added', function (snapshot) {
             _this.movies.push(snapshot.val());
         });
-        firebase.database().ref().on('child_changed', function (snapshot) {
+        firebase.database().ref('/movies').on('child_changed', function (snapshot) {
             _this.movies.splice(snapshot.key, 1, snapshot.val());
         });
-        firebase.database().ref().on('child_removed', function (snapshot) {
+        firebase.database().ref('/movies').on('child_removed', function (snapshot) {
             _this.movies.splice(snapshot.key, 1);
         });
     };
-    DataService.prototype.fbUpdateData = function (id, mtitle, year) {
-        id--;
-        firebase.database().ref('/' + id).update({ mtitle: mtitle, year: year });
+    DataService.prototype.fbGetUsers = function () {
+        var _this = this;
+        firebase.database().ref('/users').on('child_added', function (snapshot) {
+            _this.users.push(snapshot.val());
+        });
+        firebase.database().ref('/users').on('child_changed', function (snapshot) {
+            _this.users.splice(snapshot.key, 1, snapshot.val());
+        });
+        firebase.database().ref('/users').on('child_removed', function (snapshot) {
+            _this.users.splice(snapshot.key, 1);
+        });
     };
-    DataService.prototype.fbAddData = function (id, mtitle, year) {
-        this.idnew = id;
+    DataService.prototype.fbGetStatistics = function () {
+        var _this = this;
+        firebase.database().ref('/statistics').on('child_added', function (snapshot) {
+            _this.stats.push(snapshot.val());
+        });
+        firebase.database().ref('/statistics/').on('child_changed', function (snapshot) {
+            if (snapshot.key === "totalUsers") {
+                _this.stats.splice(1, 1, snapshot.val());
+            }
+            if (snapshot.key === "totalMovies") {
+                _this.stats.splice(0, 1, snapshot.val());
+            }
+        });
+    };
+    DataService.prototype.fbUpdateMovies = function (id, mtitle, year, director) {
         id--;
-        firebase.database().ref('/' + id).update({ id: this.idnew, mtitle: mtitle, year: year });
+        var user = this.getCurrentUser();
+        if (user === null) {
+            alert("Please log in to edit database.");
+        }
+        else {
+            firebase.database().ref('/movies/' + id).update({ mtitle: mtitle, year: year, director: director });
+        }
+    };
+    DataService.prototype.fbAddMovies = function (id, mtitle, year, director) {
+        this.movienewid = id;
+        id--;
+        var user = this.getCurrentUser();
+        if (user === null) {
+            alert("Please log in to edit database.");
+        }
+        else {
+            var email = user.email;
+            firebase.database().ref('/movies/' + id).update({ id: this.movienewid, mtitle: mtitle, year: year, director: director, user: email });
+            firebase.database().ref('/statistics/').update({ totalMovies: this.movienewid });
+        }
+    };
+    DataService.prototype.fbAddUser = function (email) {
+        var userid = this.stats[1];
+        firebase.database().ref('/users/' + userid).update({ email: email });
+        userid++;
+        firebase.database().ref('/statistics/').update({ totalUsers: userid });
     };
     DataService.prototype.delete = function (movie) {
-        this.movie = this.movies[this.movies.length - 1];
-        if (this.movie.id !== movie.id) {
-            this.fbUpdateData(movie.id, this.movie.mtitle, this.movie.year);
+        var user = this.getCurrentUser();
+        if (user === null) {
+            alert("Please log in to edit database.");
         }
-        this.fbDelete(this.movie.id);
+        else {
+            this.movie = this.movies[this.movies.length - 1];
+            if (this.movie.id !== movie.id) {
+                this.fbUpdateMovies(movie.id, this.movie.mtitle, this.movie.year, this.movie.director);
+                firebase.database().ref('/statistics/').update({ totalMovies: this.movie.id - 1 });
+            }
+            this.fbDeleteMovie(this.movie.id);
+        }
     };
-    DataService.prototype.fbDelete = function (id) {
+    DataService.prototype.fbDeleteMovie = function (id) {
         id--;
-        firebase.database().ref('/' + id).remove();
-    };
-    DataService.prototype.testgetobj = function () {
-        return firebase.database().ref();
-    };
-    DataService.prototype.testgetobjkey = function (id) {
-        return firebase.database().ref().child(id);
+        firebase.database().ref('/movies/' + id).remove();
+        firebase.database().ref('/statistics/').update({ totalMovies: id });
     };
     DataService = __decorate([
         core_1.Injectable(), 

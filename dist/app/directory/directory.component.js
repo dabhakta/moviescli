@@ -10,20 +10,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var common_1 = require('@angular/common');
 var filter_pipe_1 = require('../filter.pipe');
 var data_service_1 = require('../data.service');
-var detail_component_1 = require('../detail/detail.component');
 var DirectoryComponent = (function () {
-    function DirectoryComponent(router, dataService, location) {
+    function DirectoryComponent(router, dataService) {
         this.router = router;
         this.dataService = dataService;
-        this.location = location;
         this.title = "Movie Listing";
         this.movies = [];
     }
     DirectoryComponent.prototype.ngOnInit = function () {
         this.getMovies();
+    };
+    DirectoryComponent.prototype.getMovies = function () {
+        this.movies = this.dataService.getMovies();
     };
     DirectoryComponent.prototype.onSelect = function (movie) {
         this.selectedMovie = movie;
@@ -34,12 +34,8 @@ var DirectoryComponent = (function () {
     DirectoryComponent.prototype.gotoDetailEmpty = function () {
         this.router.navigate(['/detail']);
     };
-    DirectoryComponent.prototype.getMovies = function () {
-        this.movies = this.dataService.getData();
-    };
     DirectoryComponent.prototype.delete = function (movie) {
         this.dataService.delete(movie);
-        window.location.reload();
     };
     DirectoryComponent = __decorate([
         core_1.Component({
@@ -48,10 +44,9 @@ var DirectoryComponent = (function () {
             templateUrl: 'directory.component.html',
             styleUrls: ['directory.component.css'],
             pipes: [filter_pipe_1.FilterPipe],
-            providers: [data_service_1.DataService],
-            directives: [detail_component_1.DetailComponent]
+            providers: [data_service_1.DataService]
         }), 
-        __metadata('design:paramtypes', [router_1.Router, data_service_1.DataService, common_1.Location])
+        __metadata('design:paramtypes', [router_1.Router, data_service_1.DataService])
     ], DirectoryComponent);
     return DirectoryComponent;
 }());

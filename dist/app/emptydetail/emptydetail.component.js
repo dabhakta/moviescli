@@ -16,21 +16,39 @@ var EmptydetailComponent = (function () {
         this.dataService = dataService;
         this.router = router;
         this.title = "Add Movie";
+        this.movies = [];
     }
     EmptydetailComponent.prototype.ngOnInit = function () {
+        this.movies = this.dataService.getMovies();
     };
-    EmptydetailComponent.prototype.add = function (mtitle, year) {
-        if (mtitle !== null && year !== null) {
-            this.idadd = this.getLastId() + 1;
-            this.dataService.fbAddData(this.idadd, mtitle, year);
+    EmptydetailComponent.prototype.add = function (mtitle, year, director) {
+        if (mtitle !== undefined && year !== undefined && director !== undefined) {
+            this.checkformissingspot();
+            this.dataService.fbAddMovies(this.idadd, mtitle, year, director);
+            this.idadd = -1;
             this.router.navigate(['/movies']);
+        }
+        else {
+            alert("Please fill in everything.");
         }
     };
     EmptydetailComponent.prototype.getLastId = function () {
-        return this.dataService.getData().length;
+        return this.dataService.getMovies().length;
     };
     EmptydetailComponent.prototype.goBack = function () {
         this.router.navigate(['/movies']);
+    };
+    EmptydetailComponent.prototype.checkformissingspot = function () {
+        var idnew = 1;
+        for (var i in this.movies) {
+            if (this.movies[i].id === idnew) {
+                idnew++;
+                this.idadd = this.movies.length + 1;
+            }
+            else {
+                this.idadd = idnew;
+            }
+        }
     };
     EmptydetailComponent = __decorate([
         core_1.Component({

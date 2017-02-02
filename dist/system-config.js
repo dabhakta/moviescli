@@ -34,6 +34,9 @@ var barrels = [
     'app/movie',
     'app/detail',
     'app/emptydetail',
+    'app/users',
+    'app/login',
+    'app/register',
 ];
 var cliSystemConfigPackages = {};
 barrels.forEach(function (barrelName) {

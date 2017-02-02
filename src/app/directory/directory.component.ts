@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 
 import { FilterPipe } from '../filter.pipe';
 import { DataService } from '../data.service';
-import { DetailComponent } from '../detail/detail.component';
 
 @Component({
   moduleId: module.id,
@@ -12,44 +10,40 @@ import { DetailComponent } from '../detail/detail.component';
   templateUrl: 'directory.component.html',
   styleUrls: ['directory.component.css'],
   pipes: [FilterPipe],
-  providers: [DataService],
-  directives: [DetailComponent]
+  providers: [DataService]
 })
 
 export class DirectoryComponent implements OnInit {
-  
+
   title = "Movie Listing";
   movies = [];
   selectedMovie: any;
 
   constructor(
     private router: Router,
-    private dataService: DataService,
-    private location: Location) { }
+    private dataService: DataService) { }
 
   ngOnInit() {
     this.getMovies();
   }
 
-  onSelect(movie: any){
+  getMovies() {
+    this.movies = this.dataService.getMovies();
+  }
+
+  onSelect(movie: any) {
     this.selectedMovie = movie;
   }
 
-  gotoDetail(movie: any){
+  gotoDetail(movie: any) {
     this.router.navigate(['/detail', this.selectedMovie.id]);
   }
 
-  gotoDetailEmpty(){
+  gotoDetailEmpty() {
     this.router.navigate(['/detail']);
   }
 
-  getMovies(){
-    this.movies = this.dataService.getData();
-  }
-
-  delete(movie: any){
+  delete(movie: any) {
     this.dataService.delete(movie);
-    window.location.reload();
   }
-
 }

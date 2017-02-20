@@ -1,12 +1,14 @@
-<div id="login">
+<div>
   <form>
-    <h2>Log In</h2>
-    <h3>Email:
-      <input type="text" [(ngModel)]="email" placeholder="email" />
-    </h3>
-    <h3>Password:
+    <h3 class="center-align">Log In</h3>
+    <div class="divider"></div>
+    <h5>Email:
+      <input type="text" [(ngModel)]="email" placeholder="email address" />
+    </h5>
+    <h5>Password:
       <input type="text" [(ngModel)]="password" placeholder="password" />
-    </h3>
+    </h5>
   </form>
-  <button (click)="logIn(email, password)">Log In</button>
+  <button class="btn" (click)="logIn(email, password)">Log In</button>
+  <button class="btn" (click)="goBack()">Back</button>
 </div>

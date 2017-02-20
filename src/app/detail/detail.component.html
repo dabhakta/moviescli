@@ -1,23 +1,23 @@
-<h2>{{title}}</h2>
-
+<h3 class="center-align">{{title}}</h3>
+<div class="divider"></div>
 <div id="display-movie">
-	<h3>Title: {{selectedmovie.mtitle}}</h3>
-	<h3>Year: {{selectedmovie.year}}</h3>
-	<h3>Director: {{selectedmovie.director}}</h3>
-	<h3>Added by User: {{selectedmovie.user}}</h3>
+	<h5>Title: {{selectedmovie.mtitle}}</h5>
+	<h5>Year: {{selectedmovie.year}}</h5>
+	<h5>Director: {{selectedmovie.director}}</h5>
+	<h5>Added by User: {{selectedmovie.user}}</h5>
 </div>
-
+<div class="divider"></div>
 <form id="add-movie">
-	<h3>Enter changes:</h3>
-	<h3>Title:
+	<h3 class="center-align">Enter changes:</h3>
+	<h5>Title:
 		<input type="text" [(ngModel)]="selectedmovie.mtitle" placeholder="title" />
-	</h3>
-	<h3>Year:
+	</h5>
+	<h5>Year:
 		<input type="number" [(ngModel)]="selectedmovie.year" placeholder="year" />
-	</h3>
-	<h3>Director:
+	</h5>
+	<h5>Director:
 		<input type="text" [(ngModel)]="selectedmovie.director" placeholder="director" />
-	</h3>
-	<button (click)="update(selectedmovie.id, selectedmovie.mtitle, selectedmovie.year, selectedmovie.director)">Save Movie</button>
+	</h5>
+	<button class="btn" (click)="update(selectedmovie.id, selectedmovie.mtitle, selectedmovie.year, selectedmovie.director)">Save Movie</button>
+	<button class="btn" (click)="goBack()">Back</button>
 </form>
-<button (click)="goBack()">Back</button>

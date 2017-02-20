@@ -1,12 +1,15 @@
-<div id="register">
+<div>
   <form>
-    <h2>Sign Up</h2>
-    <h3>Email:
-      <input type="text" [(ngModel)]="email" placeholder="email" />
-    </h3>
-    <h3>Password:
+    <h3 class="center-align">Sign Up</h3>
+    <div class="divider"></div>
+    <h5>*Email:
+      <input type="text" [(ngModel)]="email" placeholder="email address" />
+    </h5>
+    <h5>Password:
       <input type="text" [(ngModel)]="password" placeholder="password" />
-    </h3>
+    </h5>
   </form>
-  <button (click)="register(email, password)">Sign Up</button>
+  <button class="btn" (click)="register(email, password)">Sign Up</button>
+  <button class="btn" (click)="goBack()">Back</button>
 </div>
+<p>* - Email address will be displayed in public. For demo purposes, use false email address. There is no validation.</p>

@@ -13,6 +13,4 @@ import { DataService } from './data.service';
   directives: [HomeComponent, ROUTER_DIRECTIVES]
 })
 
-export class AppComponent {
-  title = 'Dipen Bhakta';
-}
+export class AppComponent {}

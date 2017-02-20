@@ -1,19 +1,30 @@
-<h2>{{title}}</h2>
-<h3>Double click to edit movies.</h3>
-<div>
-	<h3>Add a movie to the directory: <button (click)="gotoDetailEmpty()">Add Movie</button></h3>
+<h3 class="center-align">{{title}}</h3>
+<div class="divider"></div>
+<div class="directpadding">
+	<h5 class="center-align">Double click to edit movies.</h5>
+	<div class="center-align">
+		<h5>Add a movie to the directory: <button class="btn" (click)="gotoDetailEmpty()">Add Movie</button></h5>
+	</div>
 </div>
-<div>
-	<form id="filter">
-		<label>Filter movies by title:</label>
-		<input type="text" [(ngModel)]="term" />
-	</form>
-</div>
-<ul class="movie-listing">
-	<li *ngFor="let movie of movies | filter:term" (click)="onSelect(movie)" [class.selected]="movie === selectedMovie" (dblclick)="gotoDetail(selectedMovie)">
+
+<nav>
+	<div class="nav-wrapper">
+		<form>
+			<div class="input-field">
+				<input id="search" type="search" required [(ngModel)]="term" />
+				<label class="label-icon" for="search"><i class="material-icons">search</i></label>
+			</div>
+		</form>
+	</div>
+</nav>
+<div class="directpadding"></div>
+<ul class="collection">
+	<!-- class="movie-listing"" -->
+	<li class="collection-item" *ngFor="let movie of movies | filter:term" (click)="onSelect(movie)" [class.selected]="movie === selectedMovie"
+		(dblclick)="gotoDetail(selectedMovie)">
 		<div>
-			<span class="single-movie">{{movie.id}}: ({{movie.year}}) {{movie.mtitle}}</span>
-			<button (click)="delete(movie)">Delete</button>
+			<span>{{movie.id}}: ({{movie.year}}) {{movie.mtitle}}</span>
+			<button class="btn-flat" (click)="delete(movie)">Delete</button>
 		</div>
-	</li>
+		</li>
 </ul>

@@ -17,8 +17,12 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  register(email: string, password: string){
+  register(email: string, password: string) {
     this.dataservice.registerUser(email, password);
+    this.router.navigate(['/users']);
+  }
+
+  goBack() {
     this.router.navigate(['/users']);
   }
 

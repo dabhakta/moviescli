@@ -1,19 +1,19 @@
-<div id="forms">
-	<button (click)="register()">Sign Up</button>
-	<button (click)="logIn()">Log In</button>
-	<button (click)="signOut()">Log Out</button>
+<div class="center-align">
+	<button class="btn" (click)="register()">Sign Up</button>
+	<button class="btn" (click)="logIn()">Log In</button>
+	<button class="btn" (click)="signOut()">Log Out</button>
 
 	<div *ngIf="currentuserbool">
-		<h2>Logged in as: {{currentuser.email}}</h2>
+		<h5 class="center-align">Logged in as: {{currentuser.email}}</h5>
 	</div>
 </div>
 
-<h2>
+<h3 class="center-align">
 	{{usersTitle}}
-</h2>
+</h3>
 
-<ul class="user-listing">
-	<li *ngFor="let user of users">
+<ul class="collection">
+	<li class="collection-item" *ngFor="let user of users">
 		<div>
 			<span class="single-user">User: {{user.email}}</span>
 		</div>
